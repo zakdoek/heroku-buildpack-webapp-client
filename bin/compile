@@ -207,9 +207,5 @@ fi
 # Update the PATH
 status "Building runtime environment"
 mkdir -p $build_dir/.profile.d
-export PATH="$HOME/vendor/node/bin:$HOME/bin:$HOME/node_modules/.bin:$PATH"
-export PATH="$HOME/.gem/$RUBY_VERSION/bin:$PATH"
-
-echo $(which grunt)
-
-exit 1
+echo "export PATH=\"\$HOME/vendor/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\";" > $build_dir/.profile.d/nodejs.sh
+echo "export PATH=\"\$HOME/.gem/$RUBY_VERSION/bin:\$PATH\"" > $build_dir/.profile.d/ruby.sh
