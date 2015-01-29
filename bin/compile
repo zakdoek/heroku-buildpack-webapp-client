@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -e            # fail fast
-set -o pipefail   # don't ignore exit codes when piping output
+set -o pipefail   # dont ignore exit codes when piping output
 # set -x          # enable debugging
 
 # Enable extended globbing
@@ -12,26 +12,11 @@ cache_dir=$2
 env_dir=$3
 bp_dir=$(cd $(dirname $0); cd ..; pwd)
 
-# Option [nocl] to disable cleanup for testing
-cleanup=$4
-
 # Load some convenience functions like status(), echo(), and indent()
 source $bp_dir/bin/common.sh
 
-# Load user config
-if [ -e $1/.client ]; then
-  status "Load config from .client"
-  source $1/.client
-fi
-
 # Client build directory
-build_dir=$1/${CLIENT_DIR:-"client"}
-
-# Grunt / Gulp task name
-dist_dir=${DIST_DIR:-dist}
-
-status "Client dir: ${CLIENT_DIR:-client}"
-status "Dist dir: $dist_dir"
+build_dir=$1
 
 # Fix leak
 status "Resetting git environment"
@@ -219,18 +204,8 @@ if [ -e $build_dir/bower.json ]; then
   fi
 fi
 
-# Run grunt
-status "Running grunt build task"
-$build_dir/node_modules/.bin/grunt build 2>&1 | indent
-
 # Update the PATH
 status "Building runtime environment"
 mkdir -p $build_dir/.profile.d
 echo "export PATH=\"\$HOME/vendor/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\";" > $build_dir/.profile.d/nodejs.sh
 echo "export PATH=\"\$HOME/.gem/$RUBY_VERSION/bin:\$PATH\"" > $build_dir/.profile.d/ruby.sh
-
-# Cleanup
-if [ "$cleanup" != "nocl" ]; then
-  status "Cleanup"
-  rm -rf !(${dist_dir})
-fi
