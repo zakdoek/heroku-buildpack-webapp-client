@@ -210,6 +210,6 @@ mkdir -p $build_dir/.profile.d
 export PATH="$HOME/vendor/node/bin:$HOME/bin:$HOME/node_modules/.bin:$PATH"
 export PATH="$HOME/.gem/$RUBY_VERSION/bin:$PATH"
 
-echo which grunt
+echo $(which grunt)
 
 exit 1
