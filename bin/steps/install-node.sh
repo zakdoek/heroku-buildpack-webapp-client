@@ -92,7 +92,7 @@ fi
 PATH=$build_dependencies/node/bin:$PATH
 
 # Install npm@next
-status "Installing the 'next' version of npm"
-npm install -g npm@next 2>&1 | indent
-npm_version=$(npm -v)
-status "Using npm version: $npm_version"
+# status "Installing the 'next' version of npm"
+# npm install -g npm@next 2>&1 | indent
+# npm_version=$(npm -v)
+# status "Using npm version: $npm_version"
