@@ -48,5 +48,5 @@ source $bp_dir/bin/steps/install-bower.sh
 
 # Update the PATH
 status "Building runtime environment"
-echo "export PATH=\"\$build_dir/node/bin:\$build_dir/node_modules/.bin:\$PATH\";" >> $build_dependencies/build-environment.sh
-echo "export PATH=\"\$build_dir/.gem/$RUBY_VERSION/bin:\$PATH\"" >> $build_dependencies/build-environment.sh
+echo "export PATH=\"\$(echo $build_dependencies)/node/bin:\$build_dependencies/node_modules/.bin:\$PATH\";" >> $build_dependencies/build-environment.sh
+echo "export PATH=\"\$build_dependencies/.gem/$RUBY_VERSION/bin:\$PATH\"" >> $build_dependencies/build-environment.sh
