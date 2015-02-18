@@ -12,17 +12,17 @@ cache_dir=$2
 env_dir=$3
 bp_dir=$(cd $(dirname $0); cd ..; pwd)
 
+# Client build directory
+build_dir=$1
+
 # Make deps and cached deps dirs and ensure their presence
-build_dependencies=$bp_dir/build_dependencies
+build_dependencies=$build_dir/build_dependencies
 build_dependencies_cache=$cache_dir/build_dependencies
 mkdir -p $build_dependencies
 mkdir -p $build_dependencies_cache
 
 # Load some convenience functions like status(), echo(), and indent()
 source $bp_dir/bin/common.sh
-
-# Client build directory
-build_dir=$1
 
 # Fix leak
 status "Resetting git environment"
