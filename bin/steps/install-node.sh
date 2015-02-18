@@ -58,7 +58,7 @@ fi
 do_install_node=true
 
 # Fetch the cached node version
-if -f $build_dependencies_cache/node-version; then
+if [ -e $build_dependencies_cache/node-version ]; then
     cached_node_version=$(cat $build_dependencies_cache/node-version)
 
     # Test against desired node version
