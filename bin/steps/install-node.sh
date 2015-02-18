@@ -85,6 +85,7 @@ if [ "$do_install_node" = true ]; then
     echo $node_version > $build_dependencies_cache/node-version
 else
     # Copy from cache
+    status "Fetching node runtime from cache"
     cp -r $build_dependencies_cache/node $build_dependencies/node
 fi
 
