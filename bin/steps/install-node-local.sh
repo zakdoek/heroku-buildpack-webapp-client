@@ -3,6 +3,7 @@
 # If in cache, restore from cache
 if test -d $build_dependencies_cache/node_modules; then
     status "Found existing node_modules environment, restoring"
+    rm -rf $build_dir/node_modules  # Ensure absense
     cp -r $build_dependencies_cache/node_modules $build_dir
 
     status "Prune old and unused dependencies"
@@ -24,7 +25,7 @@ fi
 
 # Scope config var availability only to `npm install`
 (
-    if [ -d "$env_dir" ]; then
+    if test -d $env_dir; then
         status "Exporting config vars to environment"
         export_env_dir $env_dir
     fi
@@ -41,7 +42,7 @@ fi
 # Purge the cache
 rm -rf $build_dependencies_cache/node_modules
 if test -d $build_dir/node_modules; then
-    cp -r $build_dir/node_modules $build_dependencies_cache
+    cp -r $build_dir/node_modules $build_dependencies_cache/node_modules
 fi
 
 # Add node thing to environment

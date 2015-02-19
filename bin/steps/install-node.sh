@@ -69,7 +69,7 @@ if test -f "$build_dependencies_cache/node-version"; then
     status "The current node version is $node_version"
 
     # Test against desired node version
-    if [ "$cached_node_version" -eq "$node_version" ]; then
+    if [ "$cached_node_version" == "$node_version" ]; then
         do_install_node=false
     fi
 fi

@@ -11,6 +11,7 @@ PATH="$GEM_HOME/bin:$PATH"
 if test -d $build_dependencies_cache/ruby; then
 
     status "Restoring ruby gems directory from cache"
+    rm -rf $build_dependencies/.gem  # Ensure none is present
     cp -r $build_dependencies_cache/ruby $build_dependencies/.gem
 
     status "Try to update compass"
@@ -29,7 +30,6 @@ fi
 
 # Cache ruby gems
 rm -rf $build_dependencies_cache/ruby
-mkdir -p $build_dependencies_cache/ruby
 
 # If app has a gems directory, cache it.
 if test -d $build_dependencies/.gem; then
