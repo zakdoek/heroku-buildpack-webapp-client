@@ -17,6 +17,7 @@ build_dir=$1
 
 # Cache the current dir
 current_dir_cache=$PWD
+current_home_cache=$HOME
 
 # Make deps and cached deps dirs and ensure their presence
 build_dependencies=$build_dir/build_dependencies
