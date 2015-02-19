@@ -15,11 +15,18 @@ bp_dir=$(cd $(dirname $0); cd ..; pwd)
 # Client build directory
 build_dir=$1
 
+# Cache the current dir
+current_dir_cache=$PWD
+
 # Make deps and cached deps dirs and ensure their presence
 build_dependencies=$build_dir/build_dependencies
 build_dependencies_cache=$cache_dir/build_dependencies
+build_activate=$build_dependencies/activate 
 mkdir -p $build_dependencies
 mkdir -p $build_dependencies_cache
+
+# Create initial environement activate
+echo "#!/usr/bin/env bash" > $build_activate
 
 # Load some convenience functions like status(), echo(), and indent()
 source $bp_dir/bin/common.sh
@@ -37,11 +44,11 @@ trap cat_npm_debug_log ERR
 # Normalize the packages
 source $bp_dir/bin/steps/install-node.sh
 
-# Install local node environment
-source $bp_dir/bin/steps/install-node-local.sh
-
 # Install compass
 source $bp_dir/bin/steps/install-compass.sh
+
+# Install local node environment
+source $bp_dir/bin/steps/install-node-local.sh
 
 # Install bower dependencies
 source $bp_dir/bin/steps/install-bower.sh

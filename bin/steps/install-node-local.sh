@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-current_dir_cache=$PWD
-
 # If in cache, restore from cache
 if test -d $build_dependencies_cache/node_modules; then
     status "Found existing node_modules environment, restoring"
@@ -14,6 +12,7 @@ if test -d $build_dependencies_cache/node_modules; then
 
     # Test if different node than original build
     if [ "$do_install_node" = true ]; then
+
         cd $build_dir
         status "Node version changed since last build; rebuilding dependencies"
         npm rebuild 2>&1 | indent
@@ -42,5 +41,8 @@ fi
 # Purge the cache
 rm -rf $build_dependencies_cache/node_modules
 if test -d $build_dir/node_modules; then
-    cp -r $build_dir/node_modules $build_dependencies_cache/node_modules
+    cp -r $build_dir/node_modules $build_dependencies_cache
 fi
+
+# Add node thing to environment
+echo "export PATH=\"$build_dir/node_modules/.bin:\$PATH\"" >> $build_activate
