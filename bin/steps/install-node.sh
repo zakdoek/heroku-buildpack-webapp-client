@@ -59,11 +59,14 @@ do_install_node=true
 
 # Fetch the cached node version
 
-status "DEBUG"
+status "Dependency cache list PRE NODE INSTALL"
 ls -lha $build_dependencies_cache
-status "ENDDEBUG"
-if [ -e $build_dependencies_cache/node-version ]; then
-    cached_node_version=$(cat $build_dependencies_cache/node-version)
+
+if test -f "$build_dependencies_cache/node-version"; then
+    cached_node_version=$(cat "$build_dependencies_cache/node-version")
+
+    status "The cached node version is $cached_node_version"
+    status "The current node version is $node_version"
 
     # Test against desired node version
     if [ "$cached_node_version" -eq "$node_version" ]; then
@@ -71,28 +74,32 @@ if [ -e $build_dependencies_cache/node-version ]; then
     fi
 fi
 
-if [ "$do_install_node" = true ]; then
+if [ "$do_install_node" = "true" ]; then
     # Download node from Heroku's S3 mirror of nodejs.org/dist
     status "Downloading and installing node"
     node_url="http://s3pository.heroku.com/node/v$node_version/node-v$node_version-linux-x64.tar.gz"
     curl $node_url -s -o - | tar xzf - -C $build_dependencies
 
     # Move node (and npm)
+    rm -rf $build_dependencies/node  # Ensure the dest folder does not exist
     mv $build_dependencies/node-v$node_version-linux-x64 $build_dependencies/node
-    chmod +x $build_dependencies/node/bin/*
+    chmod +x $build_dependencies/node/bin/*  # Make all the things executable
 
     # Cache the node executable for future use
     rm -rf $build_dependencies_cache/node
     status "Caching node executable for future builds"
     cp -r $build_dependencies/node $build_dependencies_cache/node
-    rm -rf $build_dependencies_cache/node-version
     echo "$node_version" > $build_dependencies_cache/node-version
 else
     # Copy from cache
     status "Fetching node runtime from cache"
+    rm -rf $build_dependencies/node
     cp -r $build_dependencies_cache/node $build_dependencies/node
 fi
 
 # Add to path
 PATH=$build_dependencies/node/bin:$PATH
 echo "export PATH=\"$build_dependencies/node/bin:\$PATH\"" >> $build_activate
+
+status "Dependency cache list POST NODE INSTALL"
+ls -lha $build_dependencies_cache
