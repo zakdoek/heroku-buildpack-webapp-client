@@ -46,4 +46,5 @@ if test -d $build_dir/node_modules; then
 fi
 
 # Add node thing to environment
+PATH=$build_dir/node_modules/.bin:$PATH
 echo "export PATH=\"$build_dir/node_modules/.bin:\$PATH\"" >> $build_activate
