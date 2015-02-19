@@ -38,4 +38,5 @@ if test -d $build_dependencies/.gem; then
 fi
 
 # Add to environment
-echo "export PATH=\"$build_dependencies/.gem/$RUBY_VERSION/bin:\$PATH\"" >> $build_activate
+echo "export GEM_HOME=$GEM_HOME"
+echo "export PATH=\"$GEM_HOME/bin:\$PATH\"" >> $build_activate
