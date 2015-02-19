@@ -59,9 +59,6 @@ do_install_node=true
 
 # Fetch the cached node version
 
-status "Dependency cache list PRE NODE INSTALL"
-ls -lha $build_dependencies_cache
-
 if test -f "$build_dependencies_cache/node-version"; then
     cached_node_version=$(cat "$build_dependencies_cache/node-version")
 
@@ -100,6 +97,3 @@ fi
 # Add to path
 PATH=$build_dependencies/node/bin:$PATH
 echo "export PATH=\"$build_dependencies/node/bin:\$PATH\"" >> $build_activate
-
-status "Dependency cache list POST NODE INSTALL"
-ls -lha $build_dependencies_cache
