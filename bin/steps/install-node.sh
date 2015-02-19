@@ -58,6 +58,10 @@ fi
 do_install_node=true
 
 # Fetch the cached node version
+
+status "DEBUG"
+ls -lha $build_dependencies_cache
+status "ENDDEBUG"
 if [ -e $build_dependencies_cache/node-version ]; then
     cached_node_version=$(cat $build_dependencies_cache/node-version)
 
@@ -82,7 +86,7 @@ if [ "$do_install_node" = true ]; then
     status "Caching node executable for future builds"
     cp -r $build_dependencies/node $build_dependencies_cache/node
     rm -rf $build_dependencies_cache/node-version
-    echo $node_version > $build_dependencies_cache/node-version
+    echo "$node_version" > $build_dependencies_cache/node-version
 else
     # Copy from cache
     status "Fetching node runtime from cache"
