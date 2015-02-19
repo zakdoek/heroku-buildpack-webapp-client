@@ -16,14 +16,14 @@ if test -d $build_dependencies_cache/ruby; then
 
     status "Try to update compass"
     cd $build_dependencies
-    gem update compass --user-install --no-rdoc --no-ri 2>&1 | indent
+    HOME=$build_dependencies gem update compass --user-install --no-rdoc --no-ri 2>&1 | indent
     cd $current_dir_cache
 
 else
 
     status "Compass not present, installing a fresh one"
     cd $build_dependencies
-    gem install compass --user-install --no-rdoc --no-ri 2>&1 | indent
+    HOME=$build_dependencies gem install compass --user-install --no-rdoc --no-ri 2>&1 | indent
     cd $current_dir_cache
 
 fi
