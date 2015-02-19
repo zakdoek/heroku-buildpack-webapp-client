@@ -95,4 +95,4 @@ fi
 
 # Add to path
 PATH=$build_dependencies/node/bin:$PATH
-echo "export PATH=\"$build_dependencies/node/bin:\$PATH" >> $build_activate
+echo "export PATH=\"$build_dependencies/node/bin:\$PATH\"" >> $build_activate
