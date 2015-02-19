@@ -38,5 +38,5 @@ if test -d $build_dependencies/.gem; then
 fi
 
 # Add to environment
-echo "export GEM_HOME=$GEM_HOME"
+echo "export GEM_HOME=$GEM_HOME" >> $build_activate
 echo "export PATH=\"$GEM_HOME/bin:\$PATH\"" >> $build_activate
