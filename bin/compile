@@ -53,4 +53,4 @@ source $bp_dir/bin/steps/install-node-local.sh
 # Install bower dependencies
 source $bp_dir/bin/steps/install-bower.sh
 
-status "Install of build dependencies finished"
+status ""
